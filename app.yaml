@@ -1,0 +1,8 @@
+# [START]
+runtime: nodejs
+
+service: botj
+
+network:
+  session_affinity: true
+# [END]
