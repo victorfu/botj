@@ -3,7 +3,6 @@ J is a bot.
 
 ## Development
 ```sh
-cd server
 npm install
 npm run dev
 ```
