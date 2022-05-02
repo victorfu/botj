@@ -6,10 +6,9 @@
   "author": "victor",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index.js dotenv_config_path=.env.stg",
-    "dev": "nodemon -r dotenv/config index.js dotenv_config_path=.env.stg",
-    "stg": "node -r dotenv/config index.js dotenv_config_path=.env.stg",
-    "prod": "node -r dotenv/config index.js dotenv_config_path=.env.prod"
+    "start": "cross-env NODE_ENV=production node -r dotenv/config index.js dotenv_config_path=.env.prod",
+    "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config index.js dotenv_config_path=.env.prod",
+    "prod": "cross-env NODE_ENV=production node -r dotenv/config index.js dotenv_config_path=.env.prod"
   },
   "dependencies": {
     "@google-cloud/storage": "^5.19.4",
@@ -31,6 +30,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
     "nanoid": "^3.3.3",
+    "next": "^12.1.5",
     "node-fetch": "^2.6.7",
     "pug": "^3.0.2",
     "query-string": "^7.1.1",
@@ -39,6 +39,7 @@
     "winston": "^3.7.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2"
   },

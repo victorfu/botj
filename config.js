@@ -1,6 +1,6 @@
 module.exports = {
   db: process.env.DB,
-  env: process.env.ENV,
+  env: process.env.NODE_ENV,
   keepAlive: process.env.DB_KEEPALIVE,
   port: process.env.PORT || 8080,
   replicaSet: process.env.DB_REPLICASET,
@@ -16,7 +16,7 @@ module.exports = {
   isRedisEnabled: process.env.REDIS_ENABLED === 'true',
   isSocketIOEnabled: process.env.SOCKET_IO_ENABLED === 'true',
   isFileStorageEnabled: process.env.FILE_STORAGE_ENABLED === 'true',
-  isSwaggerEnabled: process.env.ENV !== 'production' && process.env.SWAGGER_ENABLED === 'true',
+  isSwaggerEnabled: process.env.NODE_ENV !== 'production' && process.env.SWAGGER_ENABLED === 'true',
   lineNotifyClientId: process.env.LINE_NOTIFY_CLIENT_ID,
   lineNotifyClientSecret: process.env.LINE_NOTIFY_CLIENT_SECRET,
   lineNotifyRedirectUrl: process.env.LINE_NOTIFY_REDIRECT_URL,

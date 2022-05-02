@@ -7,23 +7,31 @@ const shutdown = require('./shutdown');
 const { socketio } = require('./utils/sio');
 const logger = require('./utils/logger');
 const { redisHelper } = require('./utils/redis');
+const next = require('next');
+const nextApp = next({ dev: env === 'development' });
+const handle = nextApp.getRequestHandler();
 
-const server = http.createServer(app);
+nextApp.prepare().then(() => {
+  app.use('/', (req, res) => {
+    return handle(req, res);
+  });
+  const server = http.createServer(app);
 
-if (isSocketIOEnabled) {
-  socketio.initialize(server);
-}
+  if (isSocketIOEnabled) {
+    socketio.initialize(server);
+  }
 
-if (isRedisEnabled) {
-  redisHelper.initialize();
-}
+  if (isRedisEnabled) {
+    redisHelper.initialize();
+  }
 
-server.listen(port, async () => {
-  await db.init();
+  server.listen(port, async () => {
+    await db.init();
 
-  logger.info(`Server listening on port ${port}`);
-  logger.info(`Env ${env}`);
+    logger.info(`Server listening on port ${port}`);
+    logger.info(`Env ${env}`);
 
-  process.on('SIGINT', shutdown);
-  process.on('SIGTERM', shutdown);
+    process.on('SIGINT', shutdown);
+    process.on('SIGTERM', shutdown);
+  });
 });

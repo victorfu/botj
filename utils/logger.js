@@ -4,7 +4,7 @@ const { env } = require('../config');
 const options = {
   transports: [
     new winston.transports.Console({
-      level: env === 'production' ? 'error' : 'debug',
+      level: env === 'production' ? 'info' : 'debug',
     }),
   ],
   format: winston.format.combine(winston.format.colorize({ all: true }), winston.format.simple()),
