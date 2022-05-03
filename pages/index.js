@@ -1,18 +1,32 @@
-import Link from 'next/link';
+import Head from 'next/head';
 
-export default function Home() {
+export default function Home(props) {
+  const { liff, liffError } = props;
+  if (liff) {
+    console.log(liff.getVersion());
+  }
+
+  const DisplayName = () => {
+    const idToken = liff?.getDecodedIDToken();
+    return (
+      <div>
+        <div>Name: {idToken?.name}</div>
+        <img height={150} src={idToken?.picture}></img>
+      </div>
+    );
+  };
+
+  const onClick = () => {
+    liff.login();
+  };
+
   return (
-    <ul>
-      <li>
-        <Link href='/b' as='/a'>
-          <a>a</a>
-        </Link>
-      </li>
-      <li>
-        <Link href='/a' as='/b'>
-          <a>b</a>
-        </Link>
-      </li>
-    </ul>
+    <div>
+      <Head>
+        <title>Botj</title>
+      </Head>
+      <DisplayName />
+      <button onClick={onClick}>Login</button>
+    </div>
   );
 }

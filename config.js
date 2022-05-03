@@ -21,5 +21,4 @@ module.exports = {
   lineNotifyClientSecret: process.env.LINE_NOTIFY_CLIENT_SECRET,
   lineNotifyRedirectUrl: process.env.LINE_NOTIFY_REDIRECT_URL,
   lineNotifyTokenUrl: 'https://notify-bot.line.me/oauth/token',
-  lineLiffId: '1656049321-aR1NMZPk',
 };
