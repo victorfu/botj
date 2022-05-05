@@ -56,7 +56,7 @@ async function handleEvent(event) {
     }
   }
 
-  if (event.message.text === '查詢預約') {
+  if (event.message?.text === '查詢預約') {
     try {
       const appts = await Appointment.find({ lineUserId: userId });
       const datetimes = appts.map(appt => appt.datetime.replace('T', ' ')).join('\n');
@@ -64,14 +64,14 @@ async function handleEvent(event) {
     } catch (err) {}
   }
 
-  if (event.message.text === '預約') {
+  if (event.message?.text === '預約') {
     return client.replyMessage(
       event.replyToken,
       replyTextMessage('開始預約流程', [datePickerAction('挑選日期', `type=make_appointment&state=end&timestamp=${Date.now()}`)]),
     );
   }
 
-  if (event.message.text === '取消預約') {
+  if (event.message?.text === '取消預約') {
     try {
       const appts = await Appointment.find({ lineUserId: userId });
       const datetimes = appts.map((appt, idx) => `${idx + 1} - ${appt.datetime.replace('T', ' ')}`).join('\n');
@@ -83,8 +83,8 @@ async function handleEvent(event) {
 
   if (event.type !== 'message' || event.message.type !== 'text' || event.message.emojis) {
     // ignore non-text-message event
-    return Promise.resolve(null);
   }
+  return Promise.resolve(null);
 }
 
 function replyTextMessage(text, actions) {

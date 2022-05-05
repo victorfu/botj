@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const { lineNotifyRedirectUrl, lineNotifyClientId, lineNotifyClientSecret, lineNotifyTokenUrl } = require('../config');
 const { Authorization } = require('../models');
+const { version } = require('../package.json');
 
 const lineNotifyMiddleware = async (req, res) => {
   // state is line user id
@@ -30,16 +31,17 @@ const lineNotifyMiddleware = async (req, res) => {
     { userId: state },
     {
       type: 'line-notify',
-      userId: state,
+      userId: state.toString(),
       token: data.access_token,
     },
     {
       new: true,
       upsert: true,
+      setDefaultsOnInsert: true,
     },
   );
 
-  res.render('index', { title: 'botj', message: '設定成功! 請關閉網頁 :D' });
+  res.json({ message: '設定成功! 請關閉網頁 :D' });
 };
 
 module.exports = {
