@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const path = require('path');
 const routes = require('./routes');
 const webhooks = require('./webhooks');
+const lineWebhook = require('./webhooks/line');
 const { env, apiPrefix } = require('./config');
 const { errorHandler, errorConverter } = require('./middlewares/error');
 const { configureSwagger } = require('./utils/swagger');
@@ -21,10 +22,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // the line middleware needs to be placed before body json parser
 // https://line.github.io/line-bot-sdk-nodejs/guide/webhook.html#build-a-webhook-server-with-express
-app.use('/webhook', webhooks);
+app.use('/webhook-line', lineWebhook);
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
+app.use('/webhook', webhooks);
 
 // APIs
 app.use(apiPrefix, routes);

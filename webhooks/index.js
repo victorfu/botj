@@ -1,9 +1,9 @@
 const express = require('express');
-const { lineMiddleware } = require('../middlewares/line');
 const { lineNotifyMiddleware } = require('../middlewares/line-notify');
+const { zohoMiddleware } = require('../middlewares/zoho');
 const router = express.Router({});
 
-router.post('/line', lineMiddleware);
 router.get('/line-notify', lineNotifyMiddleware);
+router.post('/zoho', zohoMiddleware);
 
 module.exports = router;

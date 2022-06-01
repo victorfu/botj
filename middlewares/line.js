@@ -1,7 +1,6 @@
 const line = require('@line/bot-sdk');
 const queryString = require('query-string');
 const { Appointment } = require('../models');
-const { lineNotifyClientId, lineNotifyRedirectUrl } = require('../config');
 
 const config = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
