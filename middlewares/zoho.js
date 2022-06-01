@@ -16,7 +16,6 @@ const zohoMiddleware = (req, res) => {
     },
     body: data,
   }).then(responseData => {
-    console.log(responseData);
     res.status(200).end();
   });
 };
