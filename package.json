@@ -11,7 +11,7 @@
     "prod": "cross-env NODE_ENV=production node -r dotenv/config index.js dotenv_config_path=.env.prod"
   },
   "dependencies": {
-    "@google-cloud/storage": "^5.19.4",
+    "@google-cloud/storage": "^6.1.0",
     "@line/bot-sdk": "^7.5.0",
     "@line/liff": "^2.20.1",
     "@sendgrid/mail": "^7.6.2",
