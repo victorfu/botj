@@ -1,8 +1,8 @@
 {
   "name": "botj",
-  "productName": "botj",
+  "productName": "J",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "J is a bot.",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
