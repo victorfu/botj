@@ -60,9 +60,9 @@ app.whenReady().then(() => {
 });
 ```
 
-However, the above code will not work as expected if png files are not loaded correctly. You can use the following configurations to load png files correctly.
+However, Tray does not work as expected if png files are not loaded correctly. Use the plugin `copy-webpack-plugin` to load png files.
 
-Fisrt, install `copy-webpack-plugin`.
+First, install `copy-webpack-plugin`.
 
 ```bash
 npm install copy-webpack-plugin --save-dev
@@ -92,7 +92,7 @@ export const plugins = [
 ];
 ```
 
-In `main.ts`, add the following configuration:
+Add the following configuration in `app.whenReady().then(() => { ... })`:
 
 ```javascript
 let tray;
