@@ -15,6 +15,8 @@ const config: ForgeConfig = {
   packagerConfig: {
     icon: "./src/assets/images/app_icon",
     asar: true,
+    name: "j",
+    executableName: "j",
   },
   rebuildConfig: {},
   makers: [
