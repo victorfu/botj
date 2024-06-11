@@ -108,3 +108,33 @@ app.whenReady().then(() => {
   tray = new Tray(icon);
 });
 ```
+
+4. Integrate with [React](https://reactjs.org/). The documentation is available at [React with Electron](https://www.electronforge.io/guides/framework-integration/react-with-typescript).
+
+5. Use `react-router-dom` to navigate between pages. Please note that the `BrowserRouter` does not work in Electron. Use `HashRouter` instead. Example code is as follows:
+
+```javascript
+import { createRoot } from "react-dom/client";
+import { createHashRouter, Link, RouterProvider } from "react-router-dom";
+
+const router = createHashRouter([
+  {
+    path: "/",
+    element:
+      <div>
+        Home Page <Link to="/about">Home</Link>
+      <div/>,
+  },
+  {
+    path: "/about",
+    element: (
+      <div>
+        About Page <Link to="/">Home</Link>
+      </div>
+    ),
+  },
+]);
+
+const root = createRoot(document.body);
+root.render(<RouterProvider router={router} />);
+```
