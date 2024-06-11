@@ -1,6 +1,6 @@
 # Botj
 
-J is a bot that helps you to automate your tasks. It is a desktop application built with Electron tested on Windows 10/11 and macOS.
+J is a bot that helps you to automate your tasks. It is a desktop application built with Electron tested on Windows 10/11, macOS and Ubuntu.
 
 ## Development
 

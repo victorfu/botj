@@ -1,6 +1,6 @@
 {
   "name": "botj",
-  "productName": "J",
+  "productName": "botj",
   "version": "1.0.0",
   "description": "J is a bot.",
   "main": ".webpack/main",
