@@ -1,5 +1,6 @@
 import path from "path";
 import { Tray, Menu, nativeImage } from "electron";
+import appState from "./state";
 
 let tray: Tray;
 
@@ -41,6 +42,7 @@ export function createTray(app: Electron.App, onDoubleClick: () => void) {
       label: "Exit",
       type: "normal",
       click: () => {
+        appState.isQuitting = true;
         app.quit();
       },
     },
