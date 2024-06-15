@@ -17,5 +17,5 @@ const router = createHashRouter([
   },
 ]);
 
-const root = createRoot(document.body);
+const root = createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={router} />);
