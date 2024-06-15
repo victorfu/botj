@@ -1,17 +1,16 @@
 import path from "path";
-import { Tray, Menu, nativeImage } from "electron";
+import { Tray, Menu, nativeImage, app } from "electron";
 import appState from "./state";
+import { getMainWindow } from "./window";
 
-let tray: Tray;
-
-export function createTray(app: Electron.App, onDoubleClick: () => void) {
+export function createTray() {
   const filePath = path.join(
     app.getAppPath(),
     ".webpack/renderer",
     "images/tray.png",
   );
   const icon = nativeImage.createFromPath(filePath);
-  tray = new Tray(icon);
+  const tray = new Tray(icon);
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -51,5 +50,12 @@ export function createTray(app: Electron.App, onDoubleClick: () => void) {
   tray.setToolTip("Botj version 0.0.1");
   tray.setContextMenu(contextMenu);
 
-  tray.on("double-click", onDoubleClick);
+  tray.on("double-click", () => {
+    const mainWindow = getMainWindow();
+    if (mainWindow.isVisible()) {
+      mainWindow.focus();
+    } else {
+      mainWindow.show();
+    }
+  });
 }
