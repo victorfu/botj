@@ -1,9 +1,9 @@
 import path from "path";
 import { Tray, Menu, nativeImage } from "electron";
 
-let tray;
+let tray: Tray;
 
-export function createTray(app: Electron.App) {
+export function createTray(app: Electron.App, onDoubleClick: () => void) {
   const filePath = path.join(
     app.getAppPath(),
     ".webpack/renderer",
@@ -13,13 +13,6 @@ export function createTray(app: Electron.App) {
   tray = new Tray(icon);
 
   const contextMenu = Menu.buildFromTemplate([
-    {
-      label: "Open",
-      type: "normal",
-      click: () => {
-        console.log("Open clicked");
-      },
-    },
     {
       label: "Settings",
       type: "normal",
@@ -55,4 +48,6 @@ export function createTray(app: Electron.App) {
 
   tray.setToolTip("Botj version 0.0.1");
   tray.setContextMenu(contextMenu);
+
+  tray.on("double-click", onDoubleClick);
 }
