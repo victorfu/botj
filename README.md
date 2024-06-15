@@ -135,6 +135,8 @@ const router = createHashRouter([
   },
 ]);
 
-const root = createRoot(document.body);
+const root = createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={router} />);
 ```
+
+6. (Optional) If you would like to use `keyboard shortcuts` in your application, go to this [document](https://www.electronjs.org/docs/latest/tutorial/keyboard-shortcuts) for more information.
