@@ -3,6 +3,7 @@ import { createWindow, getMainWindow } from "./window";
 import { createTray } from "./tray";
 import { registerShortcuts, unregisterShortcuts } from "./shortcut";
 import appState from "./state";
+import { initIpc } from "./ipc";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -17,6 +18,7 @@ app.whenReady().then(() => {
   createWindow();
   createTray();
   registerShortcuts();
+  initIpc();
 });
 
 app.on("before-quit", () => (appState.isQuitting = true));
