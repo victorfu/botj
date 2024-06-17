@@ -30,3 +30,8 @@ import "./index.css";
 import "./app";
 
 console.log("👋 Welcome! 🎉🎉🎉");
+
+api.onNavigate((route) => {
+  console.log("Navigate to", route);
+  window.location.hash = route;
+});

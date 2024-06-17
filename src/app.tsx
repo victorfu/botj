@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
-import { createHashRouter, Link, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/home-page";
+import SettingsPage from "./pages/settings-page";
 
 const router = createHashRouter([
   {
@@ -8,12 +9,8 @@ const router = createHashRouter([
     element: <HomePage />,
   },
   {
-    path: "/about",
-    element: (
-      <div>
-        About Page <Link to="/">Home</Link>
-      </div>
-    ),
+    path: "/settings",
+    element: <SettingsPage />,
   },
 ]);
 

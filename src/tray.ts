@@ -1,7 +1,7 @@
 import path from "path";
 import { Tray, Menu, nativeImage, app } from "electron";
 import appState from "./state";
-import { getMainWindow } from "./window";
+import { showMainWindow } from "./window";
 
 export function createTray() {
   const filePath = path.join(
@@ -17,7 +17,8 @@ export function createTray() {
       label: "Settings",
       type: "normal",
       click: () => {
-        console.log("Settings clicked");
+        const mainWindow = showMainWindow();
+        mainWindow.webContents.send("navigate", "settings");
       },
     },
     { type: "separator" },
@@ -27,13 +28,6 @@ export function createTray() {
       checked: true,
       click: () => {
         console.log("Option1 toggled");
-      },
-    },
-    {
-      label: "Option2",
-      type: "checkbox",
-      click: () => {
-        console.log("Option2 toggled");
       },
     },
     { type: "separator" },
@@ -47,15 +41,13 @@ export function createTray() {
     },
   ]);
 
-  tray.setToolTip("Botj version 0.0.1");
+  const name = app.getName();
+  const version = app.getVersion();
+
+  tray.setToolTip(`${name} v${version}`);
   tray.setContextMenu(contextMenu);
 
   tray.on("double-click", () => {
-    const mainWindow = getMainWindow();
-    if (mainWindow.isVisible()) {
-      mainWindow.focus();
-    } else {
-      mainWindow.show();
-    }
+    showMainWindow();
   });
 }

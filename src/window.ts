@@ -9,7 +9,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let mainWindow: BrowserWindow;
 
-export const createWindow = (): void => {
+export function createWindow(): void {
   mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
@@ -30,8 +30,18 @@ export const createWindow = (): void => {
       mainWindow.hide();
     }
   });
-};
+}
 
-export const getMainWindow = (): BrowserWindow => {
+export function getMainWindow(): BrowserWindow {
   return mainWindow;
-};
+}
+
+export function showMainWindow(): BrowserWindow {
+  const mainWindow = getMainWindow();
+  if (mainWindow.isVisible()) {
+    mainWindow.focus();
+  } else {
+    mainWindow.show();
+  }
+  return mainWindow;
+}

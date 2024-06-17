@@ -25,7 +25,7 @@ const HomePage = () => {
   return (
     <div>
       <div>
-        Home Page <Link to="/about">About</Link>
+        Home Page <Link to="/settings">Settings</Link>
       </div>
 
       <div>
