@@ -3,22 +3,19 @@ import { createWindow, getMainWindow } from "./window";
 import { createTray } from "./tray";
 import { registerShortcuts, unregisterShortcuts } from "./shortcut";
 import appState from "./state";
-import { initIpc } from "./ipc";
+import { registerIpc } from "./ipc";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   appState.isQuitting = false;
   createWindow();
   createTray();
   registerShortcuts();
-  initIpc();
+  registerIpc();
 });
 
 app.on("before-quit", () => (appState.isQuitting = true));
@@ -46,6 +43,3 @@ app.on("activate", () => {
     mainWindow.show();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
