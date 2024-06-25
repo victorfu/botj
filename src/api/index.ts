@@ -34,10 +34,9 @@ export default {
 
 function handleStream(stream: MediaStream) {
   const video = document.createElement("video");
+  video.autoplay = true;
   video.srcObject = stream;
   video.onloadedmetadata = () => {
-    video.play();
-
     const screenWidth = screen.width;
     const screenHeight = screen.height;
 
@@ -49,7 +48,13 @@ function handleStream(stream: MediaStream) {
     video.width = screenWidth;
     video.height = screenHeight;
 
-    console.log(screenHeight, screenWidth);
+    console.log(
+      `${screenWidth}x${screenHeight}`,
+      video.width,
+      video.height,
+      canvas.width,
+      canvas.height,
+    );
 
     context?.drawImage(video, 0, 0, screenWidth, screenHeight);
     const dataURL = canvas.toDataURL("image/png");

@@ -1,32 +1,42 @@
 import { desktopCapturer, globalShortcut } from "electron";
-import { getMainWindow } from "./window";
+import { closeImageWindow, getMainWindow, isImageWindowOpen } from "./window";
 import { ON_SOURCE_SELECT } from "./constants";
 
-const shortcuts = ["CommandOrControl+X"];
+const shortcutsActions = {
+  "CommandOrControl+X": () => {
+    console.log("CommandOrControl+X is pressed");
 
-export function registerShortcuts() {
-  shortcuts.forEach((shortcut) => {
-    if (globalShortcut.isRegistered(shortcut)) {
-      console.log(`${shortcut} is already registered`);
-      return;
-    }
-
-    const ret = globalShortcut.register(shortcut, () => {
-      console.log(`${shortcut} is pressed`);
-
+    if (isImageWindowOpen()) {
+      closeImageWindow();
+    } else {
       const mainWindow = getMainWindow();
       desktopCapturer
         .getSources({ types: ["screen"] })
         .then(async (sources) => {
           mainWindow.webContents.send(ON_SOURCE_SELECT, sources[0].id);
         });
-    });
+    }
+  },
+  "CommandOrControl+Y": () => {
+    console.log("CommandOrControl+Y is pressed");
+    closeImageWindow();
+  },
+};
+
+export function registerShortcuts() {
+  Object.entries(shortcutsActions).forEach(([shortcut, action]) => {
+    if (globalShortcut.isRegistered(shortcut)) {
+      console.log(`${shortcut} is already registered`);
+      return;
+    }
+
+    const ret = globalShortcut.register(shortcut, action);
 
     if (!ret) {
-      console.log("registration failed");
+      console.error(`Registration failed for ${shortcut}`);
     } else {
       console.log(
-        `${shortcut} registered : ${globalShortcut.isRegistered(shortcut)}`,
+        `${shortcut} registered: ${globalShortcut.isRegistered(shortcut)}`,
       );
     }
   });
