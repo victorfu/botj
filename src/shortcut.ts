@@ -1,4 +1,6 @@
-import { globalShortcut } from "electron";
+import { desktopCapturer, globalShortcut } from "electron";
+import { getMainWindow } from "./window";
+import { ON_SOURCE_SELECT } from "./constants";
 
 const shortcuts = ["CommandOrControl+X"];
 
@@ -11,6 +13,13 @@ export function registerShortcuts() {
 
     const ret = globalShortcut.register(shortcut, () => {
       console.log(`${shortcut} is pressed`);
+
+      const mainWindow = getMainWindow();
+      desktopCapturer
+        .getSources({ types: ["screen"] })
+        .then(async (sources) => {
+          mainWindow.webContents.send(ON_SOURCE_SELECT, sources[0].id);
+        });
     });
 
     if (!ret) {
@@ -22,6 +31,7 @@ export function registerShortcuts() {
     }
   });
 }
+
 export function unregisterShortcuts() {
   globalShortcut.unregisterAll();
 }

@@ -2,6 +2,7 @@ import path from "path";
 import { Tray, Menu, nativeImage, app } from "electron";
 import appState from "./state";
 import { showMainWindow } from "./window";
+import { ON_ROUTE_CHANGE } from "./constants";
 
 export function createTray() {
   const filePath = path.join(
@@ -18,7 +19,7 @@ export function createTray() {
       type: "normal",
       click: () => {
         const mainWindow = showMainWindow();
-        mainWindow.webContents.send("navigate", "settings");
+        mainWindow.webContents.send(ON_ROUTE_CHANGE, "settings");
       },
     },
     { type: "separator" },

@@ -17,20 +17,12 @@ const HomePage = () => {
     setAnswer(answer.join(""));
   }
 
-  async function openFile() {
-    const filePaths = await api.openFile();
-    console.log(filePaths);
-  }
-
   return (
     <div>
       <div>
         Home Page <Link to="/settings">Settings</Link>
       </div>
 
-      <div>
-        <button onClick={openFile}>Open File</button>
-      </div>
       <div>
         <button onClick={chat}>GPT3.5-Turbo</button>
         {answer && answer !== "" && (

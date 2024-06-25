@@ -1,4 +1,6 @@
 import axios from "axios";
+import { app } from "electron";
+import fs from "fs";
 
 const statusUrl = "https://duckduckgo.com/duckchat/v1/status";
 const chatUrl = "https://duckduckgo.com/duckchat/v1/chat";
@@ -81,4 +83,15 @@ export async function ddgChat(messages: { role: string; content: string }[]) {
   } catch (error) {
     console.error(`Status request error: ${error}`);
   }
+}
+
+export function save(dataURL: string) {
+  const base64Data = dataURL.replace(/^data:image\/png;base64,/, "");
+  const tmpFolder = app.getPath("temp");
+  const timestamp = new Date().getTime();
+  const filePath = `${tmpFolder}screenshot-${timestamp}.png`;
+  fs.writeFile(filePath, base64Data, "base64", (err) => {
+    if (err) console.error(err);
+    else console.log(`Saved to ${filePath}`);
+  });
 }
