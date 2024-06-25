@@ -1,7 +1,7 @@
 import { ipcMain } from "electron";
 import { handleFileOpen } from "./dialog";
 import { ddgChat } from "./utils";
-import { CHAT, OPEN_FILE, SAVE_PNG } from "./constants";
+import { CHAT, OPEN_FILE, SHOW_IMAGE } from "./constants";
 import { createImageWindow } from "./window";
 
 export function registerIpc() {
@@ -9,7 +9,7 @@ export function registerIpc() {
   ipcMain.handle(CHAT, async (event, messages) => {
     return await ddgChat(messages);
   });
-  ipcMain.on(SAVE_PNG, (event, dataURL) => {
+  ipcMain.on(SHOW_IMAGE, (event, dataURL) => {
     createImageWindow(dataURL);
   });
 }

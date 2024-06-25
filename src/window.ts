@@ -57,6 +57,7 @@ export function createImageWindow(dataURL: string) {
     frame: false,
     fullscreen: true,
     autoHideMenuBar: true,
+    transparent: true,
     webPreferences: {
       contextIsolation: true,
     },
@@ -92,14 +93,6 @@ export function createImageWindow(dataURL: string) {
   imageWindow.on("maximize", () => {
     imageWindow.setSimpleFullScreen(true);
   });
-
-  // imageWindow.loadURL(
-  //   `data:text/html,<img src="${dataURL}" style="width:100%;height:100%;margin:0;padding:0;border:none;" />`,
-  // );
-
-  // imageWindow.on("maximize", () => {
-  //   imageWindow.setSimpleFullScreen(true);
-  // });
 }
 
 export function getImageWindow(): BrowserWindow {

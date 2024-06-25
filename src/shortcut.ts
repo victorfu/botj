@@ -1,6 +1,29 @@
 import { desktopCapturer, globalShortcut } from "electron";
-import { closeImageWindow, getMainWindow, isImageWindowOpen } from "./window";
+import {
+  closeImageWindow,
+  createImageWindow,
+  getMainWindow,
+  isImageWindowOpen,
+} from "./window";
 import { ON_SOURCE_SELECT } from "./constants";
+import { Monitor } from "node-screenshots";
+
+const nativeCaptureScreen = async () => {
+  const sources = await desktopCapturer.getSources({ types: ["screen"] });
+  const mainWindow = getMainWindow();
+  mainWindow.webContents.send(ON_SOURCE_SELECT, sources[0].id);
+};
+
+const captureScreen = async () => {
+  const monitor = Monitor.fromPoint(100, 100);
+
+  monitor.captureImage().then((image) => {
+    const dataURL = `data:image/png;base64,${image
+      .toPngSync()
+      .toString("base64")}`;
+    createImageWindow(dataURL);
+  });
+};
 
 const shortcutsActions = {
   "CommandOrControl+X": () => {
@@ -9,17 +32,16 @@ const shortcutsActions = {
     if (isImageWindowOpen()) {
       closeImageWindow();
     } else {
-      const mainWindow = getMainWindow();
-      desktopCapturer
-        .getSources({ types: ["screen"] })
-        .then(async (sources) => {
-          mainWindow.webContents.send(ON_SOURCE_SELECT, sources[0].id);
-        });
+      captureScreen();
     }
   },
   "CommandOrControl+Y": () => {
     console.log("CommandOrControl+Y is pressed");
-    closeImageWindow();
+    if (isImageWindowOpen()) {
+      closeImageWindow();
+    } else {
+      nativeCaptureScreen();
+    }
   },
 };
 

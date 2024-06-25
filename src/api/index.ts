@@ -3,7 +3,7 @@ import {
   CHAT,
   ON_ROUTE_CHANGE,
   OPEN_FILE,
-  SAVE_PNG,
+  SHOW_IMAGE,
   ON_SOURCE_SELECT,
 } from "../constants";
 
@@ -58,7 +58,7 @@ function handleStream(stream: MediaStream) {
 
     context?.drawImage(video, 0, 0, screenWidth, screenHeight);
     const dataURL = canvas.toDataURL("image/png");
-    ipcRenderer.send(SAVE_PNG, dataURL);
+    ipcRenderer.send(SHOW_IMAGE, dataURL);
 
     // Stop the video stream and remove the video element
     stream.getTracks().forEach((track) => track.stop());
