@@ -14,7 +14,7 @@ const HomePage = () => {
         content: "Hello, world!",
       },
     ]);
-    setAnswer(answer.join(""));
+    setAnswer(answer);
   }
 
   return (
@@ -24,7 +24,7 @@ const HomePage = () => {
       </div>
 
       <div>
-        <button onClick={chat}>GPT3.5-Turbo</button>
+        <button onClick={chat}>Chat</button>
         {answer && answer !== "" && (
           <div>
             <span>Answer: </span>
