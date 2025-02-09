@@ -15,9 +15,24 @@ export function createWindow(): void {
     height: 600,
     width: 800,
     webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
+
+  mainWindow.webContents.session.webRequest.onHeadersReceived(
+    (details, callback) => {
+      callback({
+        responseHeaders: {
+          ...details.responseHeaders,
+          "Content-Security-Policy": [
+            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://firebasestorage.googleapis.com https://*.firebaseio.com https://*.googleapis.com; style-src 'self' 'unsafe-inline';",
+          ],
+        },
+      });
+    },
+  );
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
