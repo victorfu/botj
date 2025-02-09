@@ -35,7 +35,7 @@
     "fork-ts-checker-webpack-plugin": "^9.0.2",
     "node-loader": "^2.0.0",
     "style-loader": "^4.0.0",
-    "ts-loader": "^9.5.1",
+    "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
@@ -46,7 +46,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "electron-squirrel-startup": "^1.0.1",
     "firebase": "^11.0.1",
     "node-screenshots": "^0.2.1",
