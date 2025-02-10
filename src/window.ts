@@ -27,7 +27,7 @@ export function createWindow(): void {
         responseHeaders: {
           ...details.responseHeaders,
           "Content-Security-Policy": [
-            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://firebasestorage.googleapis.com https://*.firebaseio.com https://*.googleapis.com; style-src 'self' 'unsafe-inline';",
+            "default-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://firebasestorage.googleapis.com https://*.firebaseio.com https://*.googleapis.com; style-src 'self' 'unsafe-inline';",
           ],
         },
       });

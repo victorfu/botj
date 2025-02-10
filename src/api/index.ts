@@ -5,12 +5,14 @@ import {
   OPEN_FILE,
   SHOW_IMAGE,
   ON_SOURCE_SELECT,
+  START_CAPTURE,
 } from "../constants";
 
 export default {
   openFile: () => ipcRenderer.invoke(OPEN_FILE),
   chat: (messages: { role: string; content: string }[]) =>
     ipcRenderer.invoke(CHAT, messages),
+  startCapture: () => ipcRenderer.invoke(START_CAPTURE),
   onRouteChange: (callback: (arg0: string) => void) =>
     ipcRenderer.on(ON_ROUTE_CHANGE, (_event, route) => callback(route)),
   onSourceSelect: () =>

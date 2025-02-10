@@ -39,39 +39,7 @@ export function Layout() {
   const navigate = useNavigate();
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", gap: "20px" }}>
-          <button
-            onClick={() => navigate("/")}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Home
-          </button>
-          <button
-            onClick={() => navigate("/login")}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Login
-          </button>
-          <button
-            onClick={() => navigate("/settings")}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Settings
-          </button>
-        </div>
+      <div className="flex justify-end">
         <AuthStatus />
       </div>
 
