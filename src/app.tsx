@@ -9,6 +9,8 @@ import { loginAction } from "./actions";
 import { loginLoader, protectedLoader, rootLoader } from "./loaders";
 import { AuthProvider } from "./components/auth-provider";
 import { authService } from "./auth/auth-service";
+import CaptureOverlay from "./components/capture-overlay";
+import React, { useState, useEffect } from "react";
 
 const router = createHashRouter([
   {
@@ -45,3 +47,9 @@ const router = createHashRouter([
 
 const root = createRoot(document.getElementById("root"));
 root.render(<AuthProvider router={router} />);
+
+const App: React.FC = () => {
+  return <div>{/* Your existing app content */}</div>;
+};
+
+export default App;
