@@ -15,6 +15,14 @@ export function createTray() {
 
   const contextMenu = Menu.buildFromTemplate([
     {
+      label: "Login",
+      type: "normal",
+      click: () => {
+        const mainWindow = showMainWindow();
+        mainWindow.webContents.send(ON_ROUTE_CHANGE, "login");
+      },
+    },
+    {
       label: "Settings",
       type: "normal",
       click: () => {
