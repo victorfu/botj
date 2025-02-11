@@ -42,6 +42,8 @@ export function createWindow(): void {
 
   mainWindow = new BrowserWindow(windowOptions);
 
+  mainWindow.removeMenu();
+
   mainWindow.webContents.session.webRequest.onHeadersReceived(
     (details, callback) => {
       callback({
