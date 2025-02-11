@@ -1,26 +1,20 @@
 import { ipcRenderer } from "electron";
-import {
-  CHAT,
-  CHANGE_ROUTE,
-  OPEN_FILE,
-  SHOW_IMAGE,
-  CAPTURE_SCREEN,
-  START_CAPTURE,
-} from "../constants";
+import { CHAT, CHANGE_ROUTE, OPEN_FILE, CAPTURE_SCREEN } from "../constants";
 
 export default {
   openFile: () => ipcRenderer.invoke(OPEN_FILE),
   chat: (messages: { role: string; content: string }[]) =>
     ipcRenderer.invoke(CHAT, messages),
-  startCapture: () => ipcRenderer.invoke(START_CAPTURE),
   onChangeRoute: (callback: (arg0: string) => void) =>
     ipcRenderer.on(CHANGE_ROUTE, (_event, route) => callback(route)),
-  onCaptureScreen: () =>
+  onCaptureScreen: (callback?: (dataURL: string) => void) =>
     ipcRenderer.on(CAPTURE_SCREEN, async (event, sourceId: string) => {
       try {
         const stream = await getMediaStream(sourceId);
         const dataURL = await handleStream(stream);
-        event.sender.send(SHOW_IMAGE, dataURL);
+        if (callback) {
+          callback(dataURL);
+        }
       } catch (e) {
         console.error(e);
       }

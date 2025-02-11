@@ -1,5 +1,5 @@
 import { globalShortcut } from "electron";
-import { closeImageWindow, getMainWindow, isImageWindowOpen } from "./window";
+import { getMainWindow } from "./window";
 import { CAPTURE_SCREEN } from "./constants";
 import { getScreenSources } from "./utils";
 
@@ -9,19 +9,9 @@ const captureScreen = async () => {
 };
 
 const shortcutsActions = {
-  "CommandOrControl+X": () => {
-    console.log("CommandOrControl+X is pressed");
-    if (isImageWindowOpen()) {
-      closeImageWindow();
-    } else {
-      captureScreen();
-    }
+  F2: () => {
+    captureScreen();
   },
-  // Escape: () => {
-  //   if (isImageWindowOpen()) {
-  //     closeImageWindow();
-  //   }
-  // },
 };
 
 export function registerShortcuts() {

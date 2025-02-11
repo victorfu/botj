@@ -1,7 +1,7 @@
 import path from "path";
 import { Tray, Menu, nativeImage, app } from "electron";
 import appState from "./state";
-import { showMainWindow } from "./window";
+import { getMainWindow, showMainWindow } from "./window";
 import { CAPTURE_SCREEN, CHANGE_ROUTE } from "./constants";
 import { getScreenSources } from "./utils";
 
@@ -20,7 +20,7 @@ export function createTray() {
       type: "normal",
       click: async () => {
         const sources = await getScreenSources();
-        const mainWindow = showMainWindow();
+        const mainWindow = getMainWindow();
         mainWindow.webContents.send(CAPTURE_SCREEN, sources[0].id);
       },
     },

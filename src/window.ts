@@ -11,16 +11,36 @@ let mainWindow: BrowserWindow;
 let imageWindow: BrowserWindow;
 
 export function createWindow(): void {
-  mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { bounds } = primaryDisplay;
+
+  const windowOptions: Electron.BrowserWindowConstructorOptions = {
+    width: bounds.width,
+    height: bounds.height,
+    // x: bounds.x,
+    // y: bounds.y,
+    // frame: false,
+    // fullscreen: false,
+    // autoHideMenuBar: true,
+    // transparent: true,
+    // alwaysOnTop: true,
+    // skipTaskbar: true,
+    // movable: false,
+    // resizable: false,
+    // minimizable: false,
+    // maximizable: false,
+    // hasShadow: false,
+    // enableLargerThanScreen: true,
+    // focusable: false,
     show: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
-  });
+  };
+
+  mainWindow = new BrowserWindow(windowOptions);
 
   mainWindow.webContents.session.webRequest.onHeadersReceived(
     (details, callback) => {
@@ -38,7 +58,7 @@ export function createWindow(): void {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   if (!app.isPackaged) {
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
   }
 
   mainWindow.on("close", (event) => {
@@ -72,7 +92,7 @@ export function createImageWindow(dataURL: string) {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { bounds } = primaryDisplay;
 
-  imageWindow = new BrowserWindow({
+  const windowOptions: Electron.BrowserWindowConstructorOptions = {
     width: bounds.width,
     height: bounds.height,
     x: bounds.x,
@@ -87,43 +107,19 @@ export function createImageWindow(dataURL: string) {
     resizable: false,
     minimizable: false,
     maximizable: false,
-    type: process.platform === "win32" ? "toolbar" : "panel",
     hasShadow: false,
     enableLargerThanScreen: true,
     focusable: false,
+    backgroundColor: "red",
     webPreferences: {
       contextIsolation: true,
     },
-  });
+  };
+
+  imageWindow = new BrowserWindow(windowOptions);
 
   imageWindow.setAlwaysOnTop(true, "screen-saver");
-
-  imageWindow.loadURL(
-    `data:text/html;charset=utf-8,
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Image Display</title>
-        <style>
-          body {
-            margin: 0;
-            padding: 0;
-          }
-          img {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            border: none;
-          }
-        </style>
-      </head>
-      <body>
-        <img src="${dataURL}" />
-      </body>
-    </html>`,
-  );
+  imageWindow.loadURL(dataURL);
 }
 
 export function getImageWindow(): BrowserWindow {

@@ -28,6 +28,7 @@
 
 import "./index.css";
 import "./app";
+import { WINDOW_SCREEN_CAPTURE } from "./constants";
 
 console.log("👋 Welcome! 🎉🎉🎉");
 
@@ -36,4 +37,13 @@ api.onChangeRoute((route) => {
   window.location.hash = route;
 });
 
-api.onCaptureScreen();
+api.onCaptureScreen((dataURL) => {
+  window.location.hash = "/";
+
+  // Dispatch custom event with the captured image data
+  window.dispatchEvent(
+    new CustomEvent(WINDOW_SCREEN_CAPTURE, {
+      detail: { dataURL },
+    }),
+  );
+});
