@@ -21,12 +21,12 @@ function AuthStatus() {
 
   return (
     <div style={{ display: "flex", gap: "20px" }}>
-      <div>{rootData.user?.email}!</div>
       <fetcher.Form method="post" action="/logout">
         <button
           type="submit"
+          title={rootData.user?.email!}
           disabled={isLoggingOut}
-          className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-gray-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
         >
           {isLoggingOut ? "Signing out..." : "Sign out"}
         </button>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { app } from "electron";
+import { app, desktopCapturer } from "electron";
 import fs from "fs";
 
 const statusUrl = "https://duckduckgo.com/duckchat/v1/status";
@@ -94,4 +94,8 @@ export function save(dataURL: string) {
     if (err) console.error(err);
     else console.log(`Saved to ${filePath}`);
   });
+}
+
+export async function getScreenSources() {
+  return await desktopCapturer.getSources({ types: ["screen"] });
 }

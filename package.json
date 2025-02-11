@@ -53,7 +53,6 @@
     "axios": "^1.7.9",
     "electron-squirrel-startup": "^1.0.1",
     "firebase": "^11.0.1",
-    "node-screenshots": "^0.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0"

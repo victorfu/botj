@@ -2,7 +2,8 @@ import path from "path";
 import { Tray, Menu, nativeImage, app } from "electron";
 import appState from "./state";
 import { showMainWindow } from "./window";
-import { ON_ROUTE_CHANGE } from "./constants";
+import { CAPTURE_SCREEN, CHANGE_ROUTE } from "./constants";
+import { getScreenSources } from "./utils";
 
 export function createTray() {
   const filePath = path.join(
@@ -19,7 +20,7 @@ export function createTray() {
       type: "normal",
       click: () => {
         const mainWindow = showMainWindow();
-        mainWindow.webContents.send(ON_ROUTE_CHANGE, "/");
+        mainWindow.webContents.send(CHANGE_ROUTE, "/");
       },
     },
     {
@@ -27,7 +28,7 @@ export function createTray() {
       type: "normal",
       click: () => {
         const mainWindow = showMainWindow();
-        mainWindow.webContents.send(ON_ROUTE_CHANGE, "login");
+        mainWindow.webContents.send(CHANGE_ROUTE, "login");
       },
     },
     {
@@ -35,10 +36,19 @@ export function createTray() {
       type: "normal",
       click: () => {
         const mainWindow = showMainWindow();
-        mainWindow.webContents.send(ON_ROUTE_CHANGE, "settings");
+        mainWindow.webContents.send(CHANGE_ROUTE, "settings");
       },
     },
     { type: "separator" },
+    {
+      label: "Capture Screen",
+      type: "normal",
+      click: async () => {
+        const sources = await getScreenSources();
+        const mainWindow = showMainWindow();
+        mainWindow.webContents.send(CAPTURE_SCREEN, sources[0].id);
+      },
+    },
     {
       label: "Option1",
       type: "checkbox",

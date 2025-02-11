@@ -31,9 +31,9 @@ import "./app";
 
 console.log("👋 Welcome! 🎉🎉🎉");
 
-api.onRouteChange((route) => {
+api.onChangeRoute((route) => {
   console.log("Navigate to", route);
   window.location.hash = route;
 });
 
-api.onSourceSelect();
+api.onCaptureScreen();
