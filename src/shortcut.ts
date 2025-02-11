@@ -9,14 +9,19 @@ const captureScreen = async () => {
 };
 
 const shortcutsActions = {
-  "CommandOrControl+Y": () => {
-    console.log("CommandOrControl+Y is pressed");
+  "CommandOrControl+X": () => {
+    console.log("CommandOrControl+X is pressed");
     if (isImageWindowOpen()) {
       closeImageWindow();
     } else {
       captureScreen();
     }
   },
+  // Escape: () => {
+  //   if (isImageWindowOpen()) {
+  //     closeImageWindow();
+  //   }
+  // },
 };
 
 export function registerShortcuts() {

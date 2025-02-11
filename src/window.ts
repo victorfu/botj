@@ -14,6 +14,7 @@ export function createWindow(): void {
   mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
+    show: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -37,7 +38,7 @@ export function createWindow(): void {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   if (!app.isPackaged) {
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   }
 
   mainWindow.on("close", (event) => {
@@ -62,21 +63,40 @@ export function showMainWindow(): BrowserWindow {
   return mainWindow;
 }
 
+export function hideMainWindow(): void {
+  const mainWindow = getMainWindow();
+  mainWindow.hide();
+}
+
 export function createImageWindow(dataURL: string) {
   const primaryDisplay = screen.getPrimaryDisplay();
-  const { width, height } = primaryDisplay.workAreaSize;
+  const { bounds } = primaryDisplay;
 
   imageWindow = new BrowserWindow({
-    width,
-    height,
+    width: bounds.width,
+    height: bounds.height,
+    x: bounds.x,
+    y: bounds.y,
     frame: false,
-    fullscreen: true,
+    fullscreen: false,
     autoHideMenuBar: true,
     transparent: true,
+    alwaysOnTop: true,
+    skipTaskbar: true,
+    movable: false,
+    resizable: false,
+    minimizable: false,
+    maximizable: false,
+    type: process.platform === "win32" ? "toolbar" : "panel",
+    hasShadow: false,
+    enableLargerThanScreen: true,
+    focusable: false,
     webPreferences: {
       contextIsolation: true,
     },
   });
+
+  imageWindow.setAlwaysOnTop(true, "screen-saver");
 
   imageWindow.loadURL(
     `data:text/html;charset=utf-8,
@@ -104,10 +124,6 @@ export function createImageWindow(dataURL: string) {
       </body>
     </html>`,
   );
-
-  imageWindow.on("maximize", () => {
-    imageWindow.setSimpleFullScreen(true);
-  });
 }
 
 export function getImageWindow(): BrowserWindow {

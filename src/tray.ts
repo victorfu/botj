@@ -16,19 +16,20 @@ export function createTray() {
 
   const contextMenu = Menu.buildFromTemplate([
     {
+      label: "Capture Screen",
+      type: "normal",
+      click: async () => {
+        const sources = await getScreenSources();
+        const mainWindow = showMainWindow();
+        mainWindow.webContents.send(CAPTURE_SCREEN, sources[0].id);
+      },
+    },
+    {
       label: "Home",
       type: "normal",
       click: () => {
         const mainWindow = showMainWindow();
         mainWindow.webContents.send(CHANGE_ROUTE, "/");
-      },
-    },
-    {
-      label: "Login",
-      type: "normal",
-      click: () => {
-        const mainWindow = showMainWindow();
-        mainWindow.webContents.send(CHANGE_ROUTE, "login");
       },
     },
     {
@@ -39,16 +40,15 @@ export function createTray() {
         mainWindow.webContents.send(CHANGE_ROUTE, "settings");
       },
     },
-    { type: "separator" },
     {
-      label: "Capture Screen",
+      label: "Login",
       type: "normal",
-      click: async () => {
-        const sources = await getScreenSources();
+      click: () => {
         const mainWindow = showMainWindow();
-        mainWindow.webContents.send(CAPTURE_SCREEN, sources[0].id);
+        mainWindow.webContents.send(CHANGE_ROUTE, "login");
       },
     },
+    { type: "separator" },
     {
       label: "Option1",
       type: "checkbox",
